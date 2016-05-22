@@ -10,5 +10,10 @@
             "email": "milosdanilov@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Legacy\\MySQL\\": "lib/"
+        }
+    }
 }
