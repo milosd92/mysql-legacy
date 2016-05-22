@@ -1,0 +1,14 @@
+{
+    "name": "danilov/mysql-legacy",
+    "type": "lib",
+    "require-dev": {
+        "phpunit/phpunit": "^5.3"
+    },
+    "authors": [
+        {
+            "name": "danilov",
+            "email": "milosdanilov@gmail.com"
+        }
+    ],
+    "require": {}
+}
