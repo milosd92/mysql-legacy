@@ -20,13 +20,16 @@ class MySQL
     /**
      * Open a connection to a MySQL Server
      *
-     * @param string $server
+     * @TODO - Add default values
+     * @TODO - Add case for ini_get("mysql.default_")
+     *
+     * @param string $server asdasd
      * @param string $username
      * @param string $password
      * @param bool $new_link
      * @param int $client_flags
      */
-    public function __construct($server = 'ini_get("mysql.default_host")', $username = 'ini_get("mysql.default_user")', $password = 'ini_get("mysql.default_password")', $new_link = false, $client_flags = 0)
+    public function __construct($server, $username, $password, $new_link = false, $client_flags = 0)
     {
         $server = explode(':', $server);
 
