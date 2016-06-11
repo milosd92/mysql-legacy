@@ -4,7 +4,7 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldConnectAndClose()
     {
-        $link = new \Danilov\Legacy\MySQL('localhost', 'danilov', 'danilov');
+        $link = \Danilov\Legacy\MySQL::getConnection('localhost', 'danilov', 'danilov');
 
         $this->assertInstanceOf(\Danilov\Legacy\MySQL::class, $link);
 
@@ -19,12 +19,12 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
         $this->expectException(\PHPUnit_Framework_Error_Warning::class);
         $this->expectExceptionMessage('(HY000/1045): Access denied for user \'baduser\'@\'localhost\' (using password: YES)');
 
-        new \Danilov\Legacy\MySQL('localhost', 'baduser', 'wrongpassword');
+        \Danilov\Legacy\MySQL::getConnection('localhost', 'baduser', 'wrongpassword');
     }
 
     public function testAccessDeniedError()
     {
-        $link = @new \Danilov\Legacy\MySQL('localhost', 'baduser', 'wrongpassword');
+        $link = @\Danilov\Legacy\MySQL::getConnection('localhost', 'baduser', 'wrongpassword');
 
         $this->assertEquals(1045, $link->getErrno());
         $this->assertStringStartsWith('Access denied', $link->getError());

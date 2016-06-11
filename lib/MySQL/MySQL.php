@@ -12,7 +12,7 @@ class MySQL
     private $new_link;
     private $client_flags;
 
-    private static $connection = null;
+    private static $connections = array();
 
     /**
      * @var \mysqli
@@ -31,7 +31,7 @@ class MySQL
      * @param bool $new_link
      * @param int $client_flags
      */
-    public function __construct($server, $username, $password, $new_link = false, $client_flags = 0)
+    protected function __construct($server, $username, $password, $new_link = false, $client_flags = 0)
     {
         $server = explode(':', $server);
 
@@ -66,11 +66,13 @@ class MySQL
      */
     public static function getConnection($server, $username, $password, $new_link = false, $client_flags = 0)
     {
-        if (self::$connection === null) {
-            self::$connection = new self($server, $username, $password, $new_link, $client_flags);
+        $hash = sha1($server . $username . $password);
+
+        if (! array_key_exists($hash, self::$connections)) {
+            self::$connections[$hash] = new self($server, $username, $password, $new_link, $client_flags);
         }
 
-        return self::$connection;
+        return self::$connections[$hash];
     }
 
     /**
