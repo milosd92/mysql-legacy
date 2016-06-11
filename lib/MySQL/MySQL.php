@@ -12,6 +12,8 @@ class MySQL
     private $new_link;
     private $client_flags;
 
+    private static $connection = null;
+
     /**
      * @var \mysqli
      */
@@ -23,7 +25,7 @@ class MySQL
      * @TODO - Add default values
      * @TODO - Add case for ini_get("mysql.default_")
      *
-     * @param string $server asdasd
+     * @param string $server
      * @param string $username
      * @param string $password
      * @param bool $new_link
@@ -47,6 +49,28 @@ class MySQL
     protected function connect()
     {
         $this->mysqli = new \mysqli($this->host, $this->username, $this->password, '', $this->port, '');
+    }
+
+    /**
+     * Open a connection to a MySQL Server.
+     *
+     * @TODO - revisit this, need to create a proper getConnection
+     *
+     * @param string $server
+     * @param string $username
+     * @param string $password
+     * @param bool $new_link
+     * @param int $client_flags
+     *
+     * @return MySQL
+     */
+    public static function getConnection($server, $username, $password, $new_link = false, $client_flags = 0)
+    {
+        if (self::$connection === null) {
+            self::$connection = new self($server, $username, $password, $new_link, $client_flags);
+        }
+
+        return self::$connection;
     }
 
     /**
