@@ -17,7 +17,7 @@ class MySQL
     /**
      * @var \mysqli
      */
-    private $mysqli;
+    private $db;
 
     /**
      * Open a connection to a MySQL Server
@@ -48,7 +48,7 @@ class MySQL
 
     protected function connect()
     {
-        $this->mysqli = new \mysqli($this->host, $this->username, $this->password, '', $this->port, '');
+        $this->db = new \mysqli($this->host, $this->username, $this->password, '', $this->port, '');
     }
 
     /**
@@ -81,10 +81,10 @@ class MySQL
      */
     public function getErrno()
     {
-        if ($this->mysqli->connect_errno > 0) {
-            return $this->mysqli->connect_errno;
+        if ($this->db->connect_errno > 0) {
+            return $this->db->connect_errno;
         } else {
-            return $this->mysqli->errno;
+            return $this->db->errno;
         }
     }
 
@@ -96,10 +96,10 @@ class MySQL
      */
     public function getError()
     {
-        if ($this->mysqli->connect_errno > 0) {
-            return $this->mysqli->connect_error;
+        if ($this->db->connect_errno > 0) {
+            return $this->db->connect_error;
         } else {
-            return $this->mysqli->error;
+            return $this->db->error;
         }
     }
 
@@ -110,7 +110,7 @@ class MySQL
      */
     public function close()
     {
-        return $this->mysqli->close();
+        return $this->db->close();
     }
 
 }
