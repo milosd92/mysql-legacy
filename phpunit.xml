@@ -7,7 +7,7 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutTodoAnnotatedTests="true"
-         convertWarningsToExceptions="false"
+         convertWarningsToExceptions="true"
          verbose="true"
          colors="true"
 >
