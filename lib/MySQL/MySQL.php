@@ -108,6 +108,8 @@ class MySQL
     /**
      * Close MySQL connection
      *
+     * @TODO - this will need to cleanup current connection from static pool.
+     *
      * @return bool true on success or false on failure.
      */
     public function close()
