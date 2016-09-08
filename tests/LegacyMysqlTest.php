@@ -39,4 +39,24 @@ class LegacyMysqlTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedResult, $actualResult);
     }
+
+    public function testMysqlErrorWithLink()
+    {
+        $link = mysql_connect('localhost', 'danilov', 'danilov');
+
+        $actualResult = mysql_error($link);
+        $expectedResult = '';
+
+        $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    public function testMysqlErrorWithoutLink()
+    {
+        mysql_connect('localhost', 'danilov', 'danilov');
+
+        $actualResult = mysql_error();
+        $expectedResult = '';
+
+        $this->assertEquals($expectedResult, $actualResult);
+    }
 }

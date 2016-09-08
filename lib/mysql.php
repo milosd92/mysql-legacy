@@ -51,3 +51,24 @@ function mysql_errno($link_identifier = null)
 
     return $errno;
 }
+
+/**
+ * Returns the text of the error message from previous MySQL operation.
+ *
+ * @param Danilov\Legacy\MySQL $link_identifier [optional]
+ *
+ * @return string
+ */
+function mysql_error($link_identifier = null)
+{
+    global $__mysql_link;
+
+    if ($link_identifier !== null) {
+        $error = $link_identifier->getError();
+    } else {
+        /* @var $__mysql_link \Danilov\Legacy\MySQL */
+        $error = $__mysql_link->getError();
+    }
+
+    return $error;
+}
