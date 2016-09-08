@@ -12,8 +12,6 @@ class MySQL
     private $new_link;
     private $client_flags;
 
-    private static $connections = array();
-
     /**
      * @var \mysqli
      */
@@ -31,7 +29,7 @@ class MySQL
      * @param bool $new_link
      * @param int $client_flags
      */
-    protected function __construct($server, $username, $password, $new_link = false, $client_flags = 0)
+    public function __construct($server, $username, $password, $new_link = false, $client_flags = 0)
     {
         $server = explode(':', $server);
 
@@ -49,30 +47,6 @@ class MySQL
     protected function connect()
     {
         $this->db = new \mysqli($this->host, $this->username, $this->password, '', $this->port, '');
-    }
-
-    /**
-     * Open a connection to a MySQL Server.
-     *
-     * @TODO - revisit this, need to create a proper getConnection
-     *
-     * @param string $server
-     * @param string $username
-     * @param string $password
-     * @param bool $new_link
-     * @param int $client_flags
-     *
-     * @return MySQL
-     */
-    public static function getConnection($server, $username, $password, $new_link = false, $client_flags = 0)
-    {
-        $hash = sha1($server . $username . $password);
-
-        if (! array_key_exists($hash, self::$connections)) {
-            self::$connections[$hash] = new self($server, $username, $password, $new_link, $client_flags);
-        }
-
-        return self::$connections[$hash];
     }
 
     /**
@@ -107,8 +81,6 @@ class MySQL
 
     /**
      * Close MySQL connection
-     *
-     * @TODO - this will need to cleanup current connection from static pool.
      *
      * @return bool true on success or false on failure.
      */

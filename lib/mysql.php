@@ -19,5 +19,5 @@
  */
 function mysql_connect($server, $username, $password, $new_link = false, $client_flags = 0)
 {
-    return \Danilov\Legacy\MySQL::getConnection($server, $username, $password, $new_link, $client_flags);
+    return new \Danilov\Legacy\MySQL($server, $username, $password, $new_link, $client_flags);
 }
